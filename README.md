@@ -3,7 +3,7 @@ The code for our work **"Robust Self-supervised LiDAR Odometry via Representativ
 <!-- will be released in this repo. -->
 
 ## News
-- **2021-03** 
+- **2021-10-7** The code will be ready in few days.  
 
 ## Installation 
 As the dependencies is complex, a dockerfile has been provide. You need to install [docker](https://docs.docker.com/get-docker/) and [nvidia-docker2](https://github.com/NVIDIA/nvidia-docker) first and then set up the docker image and start up a container with the following commands: 
