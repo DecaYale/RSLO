@@ -1,0 +1,89 @@
+syntax = "proto3";
+
+package second.protos;
+import "rslo/protos/losses.proto";
+// import "rslo/protos/box_coder.proto";
+// import "rslo/protos/target.proto";
+import "rslo/protos/voxel_generator.proto";
+
+message VoxelNet {
+  string network_class_name = 1;
+  VoxelGenerator voxel_generator = 2;
+  message VoxelFeatureExtractor {
+    string module_class_name = 1;
+    repeated int32 num_filters = 2;
+    bool with_distance = 3;
+    int32 num_input_features = 4;
+    bool not_use_norm = 5;
+  }
+  VoxelFeatureExtractor voxel_feature_extractor = 3;
+  message MiddleFeatureExtractor {
+    string module_class_name = 1;
+    repeated int32 num_filters_down1 = 2;
+    repeated int32 num_filters_down2 = 3;
+    int32 num_input_features = 4;
+    int32 downsample_factor = 5;
+    // bool not_use_norm = 6;
+    bool use_leakyReLU = 7;
+    string relu_type = 8;
+    string bn_type=9;
+
+  }
+  MiddleFeatureExtractor middle_feature_extractor = 4;
+  
+  message OdomPredictor{
+    string module_class_name =1;
+    int32 num_input_features =2; 
+    repeated int32 layer_nums=3;
+    repeated int32 layer_strides=4;
+    repeated int32 num_filters =5;
+    repeated int32 upsample_strides=6;
+    repeated int32 num_upsample_filters=7;
+    // int32 avgpool_size=8;
+    int32 pool_size=8;
+    string pool_type=14;
+    bool cycle_constraint=9;
+    // bool not_use_norm = 10;
+    // bool use_sparse_conv = 11;
+    string conv_type=11; //['official', 'sparse_conv', 'mask_conv']
+    bool pred_pyramid_motion=12;
+    string odom_format=13;
+    bool dense_predict=15;
+    bool use_corr=16;
+    float dropout=17;
+    string conf_type=18;
+    bool use_SPGN=19;
+    bool use_deep_supervision=20;
+    bool not_use_loss_mask=21;
+    bool use_dynamic_mask=22;
+    bool use_leakyReLU=23;
+    bool dropout_input=24;
+    int32 first_conv_groups=25;
+    bool odom_use_se=26;
+    bool odom_use_sa=27;
+    int32 cubic_pred_height=28;
+    bool not_use_enc_norm=29;
+    bool use_svd=30;
+    string bn_type=31;
+    // bool freeze_bn=30;
+    // bool freeze_bn_affine=31;
+  }
+  OdomPredictor  odom_predictor=5;
+
+  uint32 num_point_features = 6;
+  bool use_sigmoid_score = 7;
+  Loss loss = 8;
+  // bool encode_rad_error_by_sin = 9;
+  bool encode_background_as_zeros = 10;
+  bool use_GN=11;
+  repeated float post_center_limit_range = 18;
+
+  // deprecated in future
+  bool lidar_input = 24;
+
+  bool freeze_bn=30;
+  bool freeze_bn_affine=31;
+  int32 freeze_bn_start_step =32;
+  uint32 icp_iter=33;
+  // bool sync_bn=33;
+}

@@ -1,0 +1,65 @@
+syntax = "proto3";
+
+package second.protos;
+
+// Message for configuring the localization loss, classification loss and hard
+// example miner used for training object detection models. See core/losses.py
+// for details
+message Loss {
+  RotaionLoss rotation_loss = 1;
+  TranslationLoss translation_loss = 2;
+  RotaionLoss pyramid_rotation_loss=3;
+  TranslationLoss pyramid_translation_loss=4;
+  ConsistencyLoss consistency_loss=5;
+  float pyloss_exp_w_base=6;
+  RigidTransformLoss rigid_transform_loss= 7;
+  // float rotation_weight = 4;
+
+  // float translation_weight = 5;
+  
+}
+
+message RigidTransformLoss {
+  // string loss_type =1;
+  float weight = 2 ;
+  // float init_alpha= 3;
+  // bool not_learn_alpha=4;
+  float focal_gamma=5;
+}
+message RotaionLoss {
+  // oneof  {
+  //   WeightedL2LocalizationLoss weighted_l2 = 1;
+  //   WeightedSmoothL1LocalizationLoss weighted_smooth_l1 = 2;
+  //   WeightedGHMLocalizationLoss weighted_ghm = 3;
+  // }
+
+  string loss_type =1;
+  float weight = 2 ;
+  float init_alpha= 3;
+  bool not_learn_alpha=4;
+  float focal_gamma=5;
+  float balance_scale=6;
+}
+message TranslationLoss {
+
+  string loss_type =1;
+  float weight = 2 ;
+  float init_alpha= 3;
+  bool not_learn_alpha=4;
+  float focal_gamma=5;
+  float balance_scale=6;
+}
+message ConsistencyLoss{
+
+  string loss_type =1;
+  float weight = 2 ;
+  float init_alpha= 3;
+  bool not_learn_alpha=4;
+  float focal_gamma=5;
+  float penalize_ratio=6;
+  repeated float sample_block_size=7;
+  bool norm=8;
+  float pred_downsample_ratio=9;
+  float reg_weight=10;
+  float sph_weight=11;
+}
