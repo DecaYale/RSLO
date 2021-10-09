@@ -418,21 +418,10 @@ class KittiDatasetCrossNormalHDF5(Dataset):
                 else:
                     self.seq_segments[seq_idx][0],  self.seq_segments[seq_idx][1] = min(
                         self.seq_segments[seq_idx][0], i),  max(self.seq_segments[seq_idx][1], i)
-        print(self.seq_segments, '!!!')
+        # print(self.seq_segments, '!!!')
         # TODO: transform the odometry to camera coordinates
-
         gts = np.stack([self.get_sensor_data(i, with_lidar=False)['odometry'].reshape(-1)
                         for i in range(self.__len__())], axis=0)
-        # gts = np.stack([self.get_sensor_data(i,with_lidar=False)['odometry'][-1].reshape(-1) #the last elements is current odometry if seqlen>2
-        #                 for i in range(self.__len__())], axis=0)
-        # gts = np.concatenate([self.get_sensor_data(i)['pose_seq'][-1]
-        #                       for i in range(self.__len__())], axis=0)
-
-        # preds = [
-        #     np.concatenate(
-        #         [prediction[i]['translation_preds'].detach().cpu().numpy(), prediction[i]['rotation_preds'].detach().cpu().numpy()], axis=-1) for i in range(len(prediction))
-        # ]
-        # preds = np.concatenate(preds, axis=0)
         if prediction.shape[-1]==6: #logq
            prediction=tch_p.qexp_t(prediction)
         

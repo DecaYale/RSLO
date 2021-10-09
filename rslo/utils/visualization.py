@@ -146,7 +146,6 @@ def draw_odometry(odom_vectors, view='bv', saving_dir=None, figure=None, ax=None
         t_cur = t_prev + \
             pun.rotate_vec_by_q(
                 translation[i:i+1], r_prev)
-        # print(t_cur, translation[i], '!!!')
         # t_cur = translation[i]
         if i == 1:
             ax.plot([t_prev[0][dim0], t_cur[0][dim0]], [

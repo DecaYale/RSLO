@@ -1,9 +1,10 @@
 # RSLO
 The code for our work **"Robust Self-supervised LiDAR Odometry via Representative Structure Discovery and 3D Inherent Error Distribution Modeling"** 
 <!-- will be released in this repo. -->
+![demo_vid](demo/output.gif)
+<!-- ## News
+- **2021-10-7** The code will be ready in few days.   -->
 
-## News
-- **2021-10-7** The code will be ready in few days.  
 
 ## Installation 
 As the dependencies is complex, a dockerfile has been provide. You need to install [docker](https://docs.docker.com/get-docker/) and [nvidia-docker2](https://github.com/NVIDIA/nvidia-docker) first and then set up the docker image and start up a container with the following commands: 
@@ -42,12 +43,11 @@ python script create_hdf5.py ./kitti/dataset ./kitti/dataset/all.h5
 ```
 
 ## Test with the Pretrained Models
-The trained models on the KITTI dataset have been uploaded to the [OneDrive](). You can download them and put them into the directory "weights" for testing. 
+The trained models on the KITTI dataset have been uploaded to the [OneDrive](https://1drv.ms/u/s!AgP7bY0L6pvta-AeCK1tFxJrn-8?e=1hYWzy). You can download them and put them into the directory "weights" for testing. 
 
 ```
-export PYTHON_PATH="$PROJECT_ROOT_PATH/RSLO:$PYTHON_PATH"
-export PYTHON_PATH="$PROJECT_ROOT_PATH/RSLO:$PYTHON_PATH"
-
+export PYTHONPATH="$PROJECT_ROOT_PATH:$PYTHONPATH"
+export PYTHONPATH="$PROJECT_ROOT_PATH/rslo:$PYTHONPATH"
 python -u  $PROJECT_ROOT_PATH/evaluate.py multi_proc_eval \
         --config_path $PROJECT_ROOT_PATH/config/kitti_eval_ours.prototxt \
         --model_dir ./outputs/ \
@@ -59,5 +59,20 @@ python -u  $PROJECT_ROOT_PATH/evaluate.py multi_proc_eval \
         --pretrained_path $PROJECT_ROOT_PATH/weights/ours.tckpt \
         --refine False \
 ```
-Note that you need to specify the PROJECT_ROOT_PATH, i.e. the absolute directory of the project folder "RSLO" lies in, before running the above commands.  
+Note that you need to specify the PROJECT_ROOT_PATH, i.e. the absolute directory of the project folder "RSLO" and modify the path to the created data, i.e. all.h5, in the configuration file kitti_eval_ours.prototxt before running the above commands. A bash script "script/eval_ours.sh" is provided for reference. 
+
+## Training from Scratch
+Please see [training](./doc/train.md) for more details.
+
+## TODO List and ETA
+- [x] Inference code and pretrained models (9/10/2022)
+- [ ] Training code (expected after CVPR 2022)
+- [ ] Code cleaning and refactor (expected after CVPR 2022)
+
+
+## Acknowledgments
+We thank for the open-sourced codebases [spconv](https://github.com/traveller59/spconv) and [second](https://github.com/traveller59/second.pytorch) 
+## Copyright
+
+
 

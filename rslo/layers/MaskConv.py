@@ -34,7 +34,7 @@ class MaskConv(nn.Module):
             self.mask_pool = nn.MaxPool2d(
                 kernel_size, stride=stride, padding=padding)
             self.normalize_const = 1
-            print("max_pool_mask")
+            # print("max_pool_mask")
         else:
             self.mask_pool = nn.Conv2d(1, 1,
                                        kernel_size, stride, bias=False, padding=padding)

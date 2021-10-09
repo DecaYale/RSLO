@@ -117,19 +117,19 @@ class OdomPredEncDecBase(nn.Module):
             elif "BN" in bn_type:
                 # if sync_bn:
                 if bn_type=="SyncBN" or sync_bn:
-                    print("Using syncBN in odom_pred!!!", flush=True)
+                    # print("Using syncBN in odom_pred!!!", flush=True)
                     self.BatchNorm2d = SPC_SyncBN2d
                 elif bn_type=="SemiGlobalSyncBN":
-                    print("Using SemiGlobalSyncBN in odom_pred!!!", flush=True)
+                    # print("Using SemiGlobalSyncBN in odom_pred!!!", flush=True)
                     self.BatchNorm2d = SPC_SemiGlobalSyncBN2d 
                 elif bn_type =='MaskSyncBN':
-                    print("Using MaskSyncBN in middle.", flush=True)
+                    # print("Using MaskSyncBN in middle.", flush=True)
                     self.BatchNorm2d = SPC_MaskSyncBN2d
                 elif bn_type=="BN":
-                    print("Using BN in odom_pred!!!", flush=True)
+                    # print("Using BN in odom_pred!!!", flush=True)
                     self.BatchNorm2d = SPC_BN2d
                 
-            print("negative_slope=1e-3...")
+            # print("negative_slope=1e-3...")
             self.ReLU = SPC_ReLU if not use_leakyReLU else change_default_args(negative_slope=1e-3)(SPC_LeakyReLU)
             self.ConvTranspose2d = MaskConvTranspose2d
         else:
@@ -143,7 +143,7 @@ class OdomPredEncDecBase(nn.Module):
             conv2d = change_default_args(bias=True)(conv2d)
             self.ConvTranspose2d = change_default_args(bias=True)(
                 self.ConvTranspose2d)
-            print("Conv layer sets bias=True, momentum=0.01")
+            # print("Conv layer sets bias=True, momentum=0.01")
         else:
             self.BatchNorm2d = Empty
             Conv2d = change_default_args(bias=True)(nn.Conv2d)

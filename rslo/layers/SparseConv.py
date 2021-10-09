@@ -32,7 +32,7 @@ class SPC_MaskSyncBN2d(MaskSyncBatchNorm):
             self.add_noise=True
         else:
             self.add_noise=False
-        print(f"BN add noise: {self.add_noise}")
+        # print(f"BN add noise: {self.add_noise}")
 
     def forward(self,x):
         if isinstance(x, (tuple, list)):
@@ -70,7 +70,7 @@ class SPC_SemiGlobalSyncBN2d(SemiGlobalSyncBatchNorm):
             self.add_noise=True
         else:
             self.add_noise=False
-        print(f"BN add noise: {self.add_noise}")
+        # print(f"BN add noise: {self.add_noise}")
 
     def forward(self,x):
         if isinstance(x, (tuple, list)):
@@ -107,7 +107,7 @@ class SPC_SyncBN2d(apex.parallel.SyncBatchNorm):
             self.add_noise=True
         else:
             self.add_noise=False
-        print(f"BN add noise: {self.add_noise}")
+        # print(f"BN add noise: {self.add_noise}")
 
     def forward(self,x):
         if isinstance(x, (tuple, list)):
@@ -156,7 +156,7 @@ class SPC_BN2d(nn.BatchNorm2d):
             self.add_noise=True
         else:
             self.add_noise=False
-        print(f"BN add noise: {self.add_noise}")
+        # print(f"BN add noise: {self.add_noise}")
 
     def forward(self, x):
         if isinstance(x, (tuple, list)):

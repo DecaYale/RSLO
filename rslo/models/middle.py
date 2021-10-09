@@ -83,7 +83,7 @@ class SpMiddleFHDWithCov2_3(nn.Module):
                 bias=True, )(spconv.SubMConv3d)
             ConvTranspose3d = change_default_args(bias=True)(
                  spconv.SparseInverseConv3d)
-            print("Set conv bias=True in middle !!? ")
+            # print("Set conv bias=True in middle !!? ")
         else:
             print(f"Warning: the batch normalization is turned off in {name}")
             BatchNorm2d = Empty
