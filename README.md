@@ -66,8 +66,8 @@ Please see [training](./doc/train.md) for more details.
 
 ## TODO List and ETA
 - [x] Inference code and pretrained models (9/10/2022)
-- [ ] Training code (expected after CVPR 2022)
-- [ ] Code cleaning and refactor (expected after CVPR 2022)
+- [ ] Training code (expected after CVPR 2022 ddl)
+- [ ] Code cleaning and refactor (expected after CVPR 2022 ddl)
 
 
 ## Acknowledgments
