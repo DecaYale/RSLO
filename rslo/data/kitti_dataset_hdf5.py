@@ -42,8 +42,6 @@ class KittiDatasetHDF5(Dataset):
                  ):
         assert info_path is not None
         assert split in ['train', 'val', 'eval_train','test', 'train+test', ]
-        # with open(info_path, 'rb') as f:
-        #     infos = pickle.load(f)
         self._root_path = Path(root_path)
 
         self.odom_eval = kittiOdomEval()
@@ -60,6 +58,7 @@ class KittiDatasetHDF5(Dataset):
         self.NumPointFeatures = num_point_features
 
         self.dataset=None
+        
         self.file_path = info_path
         if split == 'train':
             self.seqs = [f'{i:02d}' for i in range(7)]
@@ -183,7 +182,8 @@ class KittiDatasetHDF5(Dataset):
         # if self.dataset is None:
             # self.dataset = h5py.File(self.file_path, 'r', libver='latest', swmr=True)
         dataset= HDF5File(self.file_path, 'r', libver='latest', swmr=True, rdcc_nbytes=1024**2*4 ).read()
-        assert dataset.swmr_mode
+        # assert dataset.swmr_mode
+
         info = dataset[f"{abs_seq_idx:02d}"]
 
         if self._random_skip:

@@ -118,7 +118,6 @@ class UnVoxelOdomNetICP3(nn.Module):
         self._encode_background_as_zeros = encode_background_as_zeros
         self._num_input_features = num_input_features
         self.voxel_generator = voxel_generator
-        # self._loss_norm_type = loss_norm_type
 
         self._rotation_loss = rotation_loss
         self._translation_loss = translation_loss
@@ -126,11 +125,10 @@ class UnVoxelOdomNetICP3(nn.Module):
         self._pyramid_translation_loss = pyramid_translation_loss
         self._consistency_loss = consistency_loss
         self._conf_reg_loss = nn.MSELoss
-        # self._normal_loss = losses.CosineDistanceLoss()
 
         assert(pyloss_exp_w_base > 0)
         self._pyloss_exp_w_base = pyloss_exp_w_base if pyloss_exp_w_base > 0 else 0.5
-        assert icp_iter>0, "Param icp_iter should be larger than 0"
+        assert icp_iter>0, "The parameter of icp_iter should be larger than 0."
         self.icp_iter = icp_iter
 
         self.measure_time = measure_time
@@ -226,8 +224,6 @@ class UnVoxelOdomNetICP3(nn.Module):
         if self.freeze_bn and self.get_global_step() >= self.freeze_bn_start_step:
             # for m in self.backbone.modules():
             for m in self.modules():
-                # if isinstance(m, self.BatchNorm2d):
-                # if isinstance(m, (nn.BatchNorm2d, nn.InstanceNorm2d, nn.modules.batchnorm  )):
                 if isinstance(m, (nn.modules.batchnorm._BatchNorm)):
                     m.eval()
                     if tmp_flag:
@@ -342,11 +338,7 @@ class UnVoxelOdomNetICP3(nn.Module):
 
         self.start_timer("Create_loss forward")
         pyramid_loss = torch.zeros([1], dtype=dtype).cuda()
-        # local_loss = torch.zeros([1], dtype=dtype).cuda()
-        # C_loss = torch.zeros([1], dtype=dtype).cuda()
 
-
-        # print(pyramid_preds[-1][0][0, 0].shape, tq_map_g, example['odometry'], '!!!')
         translation_loss, rotation_loss, pyramid_T_losses, pyramid_R_losses, C_loss = self.create_loss(
             preds_dict,
             example,
@@ -703,30 +695,31 @@ class UnVoxelOdomNetICP3(nn.Module):
                     icp_iter=5
                 res_r_ = torch.eye(3, device=R_pred.device)
                 res_t_ = torch.zeros([3], device=R_pred.device)
-                l_ = 0
-                for it in range(1):
-                    l, res_r, res_t = consistency_loss(transformed_p1.squeeze(-1),
-                                                    transformed_p1_gt.squeeze(-1), 
-                                                    cov_pred=point_confs[0], 
-                                                    cov_target=point_confs[1], 
-                                                    R_pred=R_pred, t_pred=T_pred,
-                                                    normal_pred=transformed_normal1.squeeze(-1).detach(), normal_target=transformed_normal1_gt.squeeze(-1).detach(),
-                                                    mask=None,
-                                                    icp_iter=icp_iter)
+                # l_ = 0
 
-                    transformed_p1_gt =  torch.matmul(
-                            res_r[:, None], transformed_p1_gt) + res_t[:, None, :, None]
-                    transformed_normal1_gt = torch.matmul(
-                        res_r[:, None].detach(),transformed_normal1_gt)
-                    #Bx3x3 = Bx3x3@Bx3x3
-                    res_r_ = res_r@res_r_
-                    #Bx3 = (Bx3x3@Bx3x1+Bx3x1).squeeze(-1)
-                    # print (res_r.shape, res_t_.shape,res_t.shape, flush=True)
-                    res_t_ = (res_r@res_t_[...,None]+res_t[...,None]).squeeze(-1)
-                    l_+=l
+                l, res_r, res_t = consistency_loss(transformed_p1.squeeze(-1),
+                                                transformed_p1_gt.squeeze(-1), 
+                                                cov_pred=point_confs[0], 
+                                                cov_target=point_confs[1], 
+                                                R_pred=R_pred, t_pred=T_pred,
+                                                normal_pred=transformed_normal1.squeeze(-1).detach(), normal_target=transformed_normal1_gt.squeeze(-1).detach(),
+                                                mask=None,
+                                                icp_iter=icp_iter)
+
+                transformed_p1_gt =  torch.matmul(
+                        res_r[:, None], transformed_p1_gt) + res_t[:, None, :, None]
+                transformed_normal1_gt = torch.matmul(
+                    res_r[:, None].detach(),transformed_normal1_gt)
+                #Bx3x3 = Bx3x3@Bx3x3
+                res_r_ = res_r@res_r_
+                #Bx3 = (Bx3x3@Bx3x1+Bx3x1).squeeze(-1)
+                # print (res_r.shape, res_t_.shape,res_t.shape, flush=True)
+                res_t_ = (res_r@res_t_[...,None]+res_t[...,None]).squeeze(-1)
+                # l_+=l
+
                 res_r = res_r_
                 res_t = res_t_ 
-                l = l_
+                # l = l_
                 
                 C_loss += (1-warm_weight)*weight*l
                 
@@ -737,7 +730,6 @@ class UnVoxelOdomNetICP3(nn.Module):
                 rotation_targets)
             rotation_targets = torchplus.roll(rotation_targets, 1, dim=-1)
             rotation_targets *= torch.sign(rotation_targets[:, 0:1])
-            # print(res_r, res_t, R_pred, rotation_targets,flush=True)
 
             translation_targets = (
                 res_r@T_pred[..., None].detach()+res_t[..., None]).squeeze(-1)  # Bx3

@@ -1,5 +1,13 @@
 import h5py
 
+try:
+    import fsspec
+    from petrel_client.client import Client
+except: 
+    Client=None
+    pass
+
+
 class Singleton(type):
     _instances = {}
     def __call__(cls, *args, **kwargs):
@@ -27,7 +35,23 @@ class HDF5File(metaclass=HDF5Singleton):
 
     def __init__(self, file_path, mode='r',libver="latest", swmr=True, rdcc_nbytes=1024**2*15 ):
         self.file_path = file_path
-        self.file = h5py.File(file_path, mode=mode, libver=libver,swmr=swmr, rdcc_nbytes=rdcc_nbytes) 
+
+
+        if Client is not None:
+            conf_path = '~/petreloss.conf'
+            print("HDF5 is opening...", flush=True)
+            client = Client(conf_path)
+            url = client.generate_presigned_url('s3://Bucket/all.h5')
+            with fsspec.open(url) as f:
+                # hf = h5py.File(f)
+                # self.file = h5py.File(f, mode=mode, libver=libver,swmr=swmr, rdcc_nbytes=rdcc_nbytes) 
+                self.file = h5py.File(f, mode=mode, )#libver=libver,swmr=swmr, rdcc_nbytes=rdcc_nbytes) 
+            print("HDF5 is opened!", flush=True)
+        else:
+            self.file = h5py.File(file_path, mode=mode, libver=libver,swmr=swmr, rdcc_nbytes=rdcc_nbytes) 
+
+            
+        # self.file = h5py.File(file_path, mode=mode, libver=libver,swmr=swmr, rdcc_nbytes=rdcc_nbytes) 
 
     def read(self):
         # print(self._instances,flush=True)

@@ -62,11 +62,30 @@ python -u  $PROJECT_ROOT_PATH/evaluate.py multi_proc_eval \
 Note that you need to specify the PROJECT_ROOT_PATH, i.e. the absolute directory of the project folder "RSLO" and modify the path to the created data, i.e. all.h5, in the configuration file kitti_eval_ours.prototxt before running the above commands. A bash script "script/eval_ours.sh" is provided for reference. 
 
 ## Training from Scratch
-Please see [training](./doc/train.md) for more details.
+A basic training script demo is shown as below. You can increase the GPU number, i.e. the variable "GPUs", according to your available resources. Generally, larger batch sizes produce stabler training procedures and better final performances.
+
+
+```
+export PYTHONPATH="$PROJECT_ROOT_PATH:$PYTHONPATH"
+export PYTHONPATH="$PROJECT_ROOT_PATH/rslo:$PYTHONPATH"
+GPUs=1 # the number of gpus you use 
+python -u  $PROJECT_ROOT_PATH/train_hdf5.py multi_proc_train \
+        --config_path $PROJECT_ROOT_PATH/config/kitti_train_ours.prototxt \
+        --model_dir ./outputs/ \
+        --use_dist True \
+        --gpus_per_node $GPUs \
+        --use_apex True \
+        --world_size $GPUs \
+        --dist_port 20000 \
+        --refine False \
+
+```
+
+<!-- Please see [training](./doc/train.md) for more details. -->
 
 ## TODO List and ETA
 - [x] Inference code and pretrained models (9/10/2022)
-- [ ] Training code (in a few days)
+- [x] Training code (10/12/2022)
 - [ ] Code cleaning and refactor (expected after CVPR 2022 ddl)
 - [ ] Mapping code(expected after CVPR 2022 ddl)
 
