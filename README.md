@@ -13,7 +13,7 @@ The self-supervised two-frame odometry network contains three main modules inclu
 
 <!-- ![image info](./demo/framework.png) -->
 <p align="center">
-<img src="./demo/framework.png" alt="alt text" width="400"/>
+<img src="./demo/framework.png" alt="alt text" width="450"/>
 </p>
 
 ## Estimated Trajectories and Point Covariance Estimations
@@ -22,10 +22,9 @@ The comparison (on estimated trajectories) of our method with other competitive 
 
 <!-- <p align="center"> -->
 <center class="half">
-  <img src="./demo/traj.png" height=150 > 
-  <img src="./demo/pointcov.png" height=150>
+  <img src="./demo/traj+pointcov.png" height=230 > 
 </center>
-<!-- </p> -->
+
 
 
 ## Installation 
