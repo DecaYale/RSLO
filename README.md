@@ -86,8 +86,7 @@ python -u  $PROJECT_ROOT_PATH/train_hdf5.py multi_proc_train \
 ## TODO List and ETA
 - [x] Inference code and pretrained models (9/10/2022)
 - [x] Training code (10/12/2022)
-- [ ] Code cleaning and refactor (expected after CVPR 2022 ddl)
-- [ ] Mapping code(expected after CVPR 2022 ddl)
+- [ ] Code cleaning and refactor 
 
 
 ## Acknowledgments
