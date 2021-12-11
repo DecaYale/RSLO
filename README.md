@@ -1,9 +1,30 @@
 # RSLO
 The code for our work **"Robust Self-supervised LiDAR Odometry via Representative Structure Discovery and 3D Inherent Error Distribution Modeling"** 
-<!-- will be released in this repo. -->
-![demo_vid](demo/output.gif)
-<!-- ## News
-- **2021-10-7** The code will be ready in few days.   -->
+
+<p align="center">
+ <img src="demo/output.gif" alt="animated" />
+</p>
+
+<!-- ![demo_vid](demo/output.gif) -->
+
+
+## Framework 
+The self-supervised two-frame odometry network contains three main modules including the Geometric Unit Feature Encoding module, Geometric Unit Transformation Estimation module and the Ego-motion voting module. 
+
+<!-- ![image info](./demo/framework.png) -->
+<p align="center">
+<img src="./demo/framework.png" alt="alt text" width="600"/>
+</p>
+
+## Estimated Trajectories and Point Covariance Estimations
+The comparison (on estimated trajectories) of our method with other competitive baselines (left).  The visualization of our estimated point covariances (right). 
+<!-- <figure class="image"> -->
+<p align="center">
+  <img src="./demo/traj.png" alt="" height="260"> <img src="./demo/pointcov.png" alt="" height="260"/>
+</p>
+<!-- </figure> -->
+
+<!-- </p> -->
 
 
 ## Installation 
