@@ -1,5 +1,5 @@
 # RSLO
-The code for our work **"Robust Self-supervised LiDAR Odometry via Representative Structure Discovery and 3D Inherent Error Distribution Modeling"** 
+The code for our work **"Robust Self-supervised LiDAR Odometry via Representative Structure Discovery and 3D Inherent Error Distribution Modeling"** accepted by IEEE Robotics and Automation Letters (RA-L), 2021.  
 
 <p align="center">
  <img src="demo/output.gif" alt="animated" />
@@ -104,14 +104,39 @@ python -u  $PROJECT_ROOT_PATH/train_hdf5.py multi_proc_train \
 
 <!-- Please see [training](./doc/train.md) for more details. -->
 
+
+
+## Acknowledgments
+We thank for the open-sourced codebases [spconv](https://github.com/traveller59/spconv) and [second](https://github.com/traveller59/second.pytorch) 
+
+## Citation
+To cite our paper
+```
+@article{xu2022robust,
+  title={Robust Self-supervised LiDAR Odometry via Representative Structure Discovery and 3D Inherent Error Modeling},
+  author={Xu, Yan and Lin, Junyi and Shi, Jianping and Zhang, Guofeng and Wang, Xiaogang and Li, Hongsheng},
+  journal={IEEE Robotics and Automation Letters},
+  year={2021},
+  publisher={IEEE}
+}
+```
+```
+@inproceedings{xu2020selfvoxelo,
+  title     = {SelfVoxeLO: Self-supervised LiDAR Odometry with Voxel-based Deep Neural Networks},
+  author    = {Yan Xu and Zhaoyang Huang and Kwan{-}Yee Lin and Xinge Zhu and Jianping Shi and Hujun Bao and Guofeng Zhang and Hongsheng Li},
+  booktitle = {4th Conference on Robot Learning, CoRL 2020, 16-18 November 2020, Virtual Event / Cambridge, MA, {USA}},
+  volume    = {155},
+  pages     = {115--125},
+  publisher = {{PMLR}},
+  year      = {2020},
+}
+```
+
 ## TODO List and ETA
 - [x] Inference code and pretrained models (9/10/2022)
 - [x] Training code (10/12/2022)
 - [ ] Code cleaning and refactor 
 
-
-## Acknowledgments
-We thank for the open-sourced codebases [spconv](https://github.com/traveller59/spconv) and [second](https://github.com/traveller59/second.pytorch) 
 
 
 
