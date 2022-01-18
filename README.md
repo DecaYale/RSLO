@@ -1,7 +1,7 @@
 # RSLO
 [[Paper]](https://scholar.google.com/scholar?hl=zh-CN&as_sdt=0%2C5&q=Robust+Self-supervised+LiDAR+Odometry+via+Representative+Structure+Discovery+and+3D+Inherent+Error+Distribution+Modeling&btnG=)
 
-The code of paper *Robust Self-supervised LiDAR Odometry via Representative Structure Discovery and 3D Inherent Error Distribution Modeling* accepted by IEEE Robotics and Automation Letters (RA-L), 2021.  
+The code of paper **Robust Self-supervised LiDAR Odometry via Representative Structure Discovery and 3D Inherent Error Modeling** accepted by IEEE Robotics and Automation Letters (RA-L), 2021.  
 
 <p align="center">
  <img src="demo/output.gif" alt="animated" />
